@@ -48,12 +48,12 @@ public class OrderService {
 			p.setQuantity(aqut-qnt);
 			a.setP(p);
 			a.setRateper10gm(p.getRateper10gm());
-			Double t=a.getP().getPrice()*qnt;
+			Double t=Double.parseDouble(String.format("%.2f", a.getP().getPrice()*qnt));
 			total+=t;
 			a.setPrice(t);
 		}
 		Double tax=Double.parseDouble(env.getProperty("tax"))*total/100;
-		o.setTax(tax);
+		o.setTax(Double.parseDouble(String.format("%.2f", tax)));
 		o.setTotal(total+tax);
 	
 		odao.save(o);

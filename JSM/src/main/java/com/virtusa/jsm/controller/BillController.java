@@ -44,7 +44,7 @@ public class BillController {
  	Environment env;
     
 	@GetMapping("/all")
-	public ResponseEntity<?> getAllProducts(@RequestHeader(name = "Authorization" ) String tokenDup) throws DataNotFoundException, WrongFormatException {
+	public ResponseEntity<?> getAllCusBills(@RequestHeader(name = "Authorization" ) String tokenDup) throws DataNotFoundException, WrongFormatException {
 		
 		
 		String token = tokenDup.substring(7);
@@ -54,6 +54,24 @@ public class BillController {
 			if(user!=null) {
 				if (jwtTokenUtil.validateToken(token, user)) {
 					return new ResponseEntity<>(service.getAllC(user.getUsername()),HttpStatus.OK);
+				} else {
+					vaildatingDTO.setValidStatus(false);
+					return new ResponseEntity<>(vaildatingDTO, HttpStatus.FORBIDDEN);
+				}
+			}  
+		}
+		throw new WrongFormatException(env.getProperty("wrongJWT"));
+	}
+	
+	@GetMapping("/all/{p}")
+	public ResponseEntity<?> getAllCusrBillsSort(@RequestHeader(name = "Authorization" ) String tokenDup,@PathVariable("p") String sort) throws DataNotFoundException, WrongFormatException {
+		String token = tokenDup.substring(7);
+		if(jwtTokenUtil.isTokenInFormat(token)){
+			UserDetails user ;
+			 user = cservice.getByEmail(jwtTokenUtil.extractUsername(token));
+			if(user!=null) {
+				if (jwtTokenUtil.validateToken(token, user)) {
+					return new ResponseEntity<>(service.getAllCS(user.getUsername(),sort),HttpStatus.OK);
 				} else {
 					vaildatingDTO.setValidStatus(false);
 					return new ResponseEntity<>(vaildatingDTO, HttpStatus.FORBIDDEN);
@@ -73,6 +91,26 @@ public class BillController {
 			if(user!=null) {
 				if (jwtTokenUtil.validateToken(token, user)) {
 					return new ResponseEntity<>(service.getAll(),HttpStatus.OK);
+				} else {
+					vaildatingDTO.setValidStatus(false);
+					return new ResponseEntity<>(vaildatingDTO, HttpStatus.FORBIDDEN);
+				}
+			}  
+		}
+		throw new WrongFormatException(env.getProperty("wrongJWT"));
+	}
+	
+
+	@GetMapping("/allShop/{p}")
+	public ResponseEntity<?> getAllBills(@RequestHeader(name = "Authorization" ) String tokenDup,@PathVariable("p") String sort) throws DataNotFoundException, WrongFormatException {
+		 
+		String token = tokenDup.substring(7);
+		if(jwtTokenUtil.isTokenInFormat(token)){
+			UserDetails user ;
+			 user = sservice.getShopByEmail(jwtTokenUtil.extractUsername(token));
+			if(user!=null) {
+				if (jwtTokenUtil.validateToken(token, user)) {
+					return new ResponseEntity<>(service.getAllSort(sort),HttpStatus.OK);
 				} else {
 					vaildatingDTO.setValidStatus(false);
 					return new ResponseEntity<>(vaildatingDTO, HttpStatus.FORBIDDEN);

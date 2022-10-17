@@ -1,5 +1,6 @@
 package com.virtusa.jsm.service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -99,5 +100,23 @@ public class BillService {
 			log.error(env.getProperty("noBill"));
 			throw new DataNotFoundException(env.getProperty("noBill"));
 			}
+
+	public Object getAllSort(String sort) throws DataNotFoundException {
+		List<Bill> list=(List<Bill>) this.getAll();
+		if(sort.equals("asc"))
+			list.sort((o1, o2) -> Double.compare(o2.getord().getTotal(), o1.getord().getTotal()));
+		else if(sort.equals("desc"))
+			list.sort((o1, o2) -> Double.compare(o1.getord().getTotal(), o2.getord().getTotal()));
+		return list;
+	}
+
+	public Object getAllCS(String email, String sort) throws DataNotFoundException {
+		List<Bill> list=(List<Bill>) this.getAllC(email);
+		if(sort.equals("asc"))
+			list.sort((o1, o2) -> Double.compare(o2.getord().getTotal(), o1.getord().getTotal()));
+		else if(sort.equals("desc"))
+			list.sort((o1, o2) -> Double.compare(o1.getord().getTotal(), o2.getord().getTotal()));
+		return list;
+	}
 	
 }

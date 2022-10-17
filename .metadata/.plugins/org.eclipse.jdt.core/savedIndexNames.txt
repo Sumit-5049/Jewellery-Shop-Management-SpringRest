@@ -1,0 +1,2 @@
+INDEX VERSION 1.131+D:\Sumit\Virtusa\Jewellery-Shop-Management-Rest\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index

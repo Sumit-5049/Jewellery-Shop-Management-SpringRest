@@ -28,30 +28,9 @@ public class ShopService {
 	Environment env;
 	Log log= LogFactory.getLog(CustomerService.class);
 	
-	public List<?> findAll() {
-		return dao.findAll();		
-	}
-
-	public Shop add(Shop s) {
-		return dao.save(s);
-	}
-
-//	public Shop login(String email, String pass) throws InvalidCredentialException, DataNotFoundException {
-//		
-//		Shop s=null;
-//		s=dao.findByEmail(email);
-//		if(s!=null) {
-//			if(s.getPassword().equals(pass)) {
-//				log.info(env.getProperty("loginshop"));
-//				return s;}
-//			else {
-//				log.error(env.getProperty("invalid"));
-//				throw new InvalidCredentialException(env.getProperty("invalid"));}
-//			}
-//		log.error(env.getProperty("invalid")+email);
-//		throw new DataNotFoundException(env.getProperty("invalid")+email);
-//	}
-
+//msg:Login
+//input:AuthenticationRequest object
+//output:UserDetails object
 	public UserDetails login(AuthenticationRequest req) throws InvalidCredentialException, DataNotFoundException {
 		Shop s=new Shop();
 		s=dao.findByEmail(req.getEmail());
@@ -67,6 +46,9 @@ public class ShopService {
 		throw new DataNotFoundException(env.getProperty("invalid")+req.getEmail());
 	}
 
+//msg:Get shop by email
+//input:String shop_email
+//output:UserDetails object
 	public UserDetails getShopByEmail(String req) throws DataNotFoundException {
 		 Shop s=dao.findByEmail(req);
 		if(s!=null) {
@@ -74,9 +56,13 @@ public class ShopService {
 		}
 		log.error(env.getProperty("invalid")+req);
 		throw new DataNotFoundException(env.getProperty("invalid")+req);
-	}
-		
-	
-	
-	
+	}	
 }
+
+//public List<?> findAll() {
+//	return dao.findAll();		
+//}
+//
+//public Shop add(Shop s) {
+//	return dao.save(s);
+//}

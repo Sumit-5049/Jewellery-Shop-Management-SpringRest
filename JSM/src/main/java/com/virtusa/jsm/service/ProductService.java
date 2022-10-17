@@ -26,6 +26,9 @@ public class ProductService {
 	Environment env;
 	Log log= LogFactory.getLog(ProductService.class);
 	
+//msg:Get all Products & calculate current price
+//input:List<Double> price of gold & silver
+//output: List of Product objects
 	public List<Product> getAll(List<Double> l) throws DataNotFoundException {
 		List<Product> list=null;
 		list= dao.findAll();
@@ -56,6 +59,9 @@ public class ProductService {
 		}
 	}
 
+//msg:Get all Products by Material
+//input:String material
+//output: List of Product objects
 	public List<Product> getAllByMaterial(String material) throws DataNotFoundException {
 		List<Product> list=null;
 		list= dao.findAllByMaterial(material);
@@ -67,6 +73,9 @@ public class ProductService {
 			throw new DataNotFoundException(env.getProperty("emptyproductmat")+material);}
 	}
 
+//msg:Get all Products By type
+//input:String type
+//output: List of Product objects
 	public List<Product> getAllByType(String type) throws DataNotFoundException {
 		List<Product> list=null;
 		list= dao.findAllByType(type);
@@ -77,19 +86,28 @@ public class ProductService {
 			log.error(env.getProperty("emptyproductmat")+type);
 			throw new DataNotFoundException(env.getProperty("emptyproductmat")+type);}
 	}
-		
+
+//msg:Add new Product
+//input:Product object
+//output: String msg
 	public String add(Product p) {
 		dao.save(p);
 		log.info(env.getProperty("padded"));
 		return env.getProperty("padded");
 	}
-
+	
+//msg:Update a Product
+//input:Product object
+//output: String msg
 	public String updateProduct(Product p) {
 		dao.save(p);
 		log.info(env.getProperty("pupdated"));
 		return env.getProperty("pupdated");
 	}
 
+//msg:Get a product
+//input:int product_id
+//output: Product object
 	public Product getById(int pid) throws DataNotFoundException {
 		Optional<?> p;
 		p=dao.findById(pid);
@@ -99,9 +117,23 @@ public class ProductService {
 		else {
 			log.error(env.getProperty("emptyproduct")+pid);
 			throw new DataNotFoundException(env.getProperty("emptyproduct")+pid);}
-		 
+	}
+
+//msg:Get all Products by sort
+//input: string sort,List<Double> price of gold & silver
+//output: List of Product objects
+	public List<Product> getAllSort(List<Double> l, String sort) throws DataNotFoundException {
+		List<Product> list=this.getAll(l);
+		if(sort.equals("asc"))
+			list.sort(Comparator.comparingDouble(Product::getPrice).reversed());
+		else if(sort.equals("desc"))
+			list.sort(Comparator.comparingDouble(Product::getPrice));
+		return list;
 	}
 	
+//msg:Get all Products by Material & sort
+//input:String material, string sort
+//output: List of Product objects
 	public List<Product> getAllByMaterialSort(String material, String sort) throws DataNotFoundException {
 		List<Product> list=this.getAllByMaterial(material);
 		if(sort.equals("asc"))
@@ -111,15 +143,9 @@ public class ProductService {
 		return list;
 	}
 
-	public List<Product> getAllSort(List<Double> l, String sort) throws DataNotFoundException {
-		List<Product> list=this.getAll(l);
-		if(sort.equals("asc"))
-			list.sort(Comparator.comparingDouble(Product::getPrice).reversed());
-		else if(sort.equals("desc"))
-			list.sort(Comparator.comparingDouble(Product::getPrice));
-		return list;
-	}
-
+//msg:Get all Products by Type & sort
+//input:String material, string sort
+//output: List of Product objects
 	public Object getAllByTypeSort(String type, String sort) throws DataNotFoundException {
 		List<Product> list=this.getAllByType(type);
 		if(sort.equals("asc"))
@@ -128,9 +154,5 @@ public class ProductService {
 			list.sort(Comparator.comparingDouble(Product::getPrice));
 		return list;
 	}
-
-	
-	
-	
 	
 }

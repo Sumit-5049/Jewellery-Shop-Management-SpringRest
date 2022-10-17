@@ -41,6 +41,10 @@ public class GlobalExceptionHandler {
 	          return new ResponseEntity<>(new ErrorInfo(LocalDateTime.now(), e.getMessage(), req.getRequestURI()),HttpStatus.NOT_ACCEPTABLE);
 	    }
 	
+	  @ExceptionHandler(NotPossibleException.class)
+	    public @ResponseBody  ResponseEntity<?> NotPossibleException(NotPossibleException e, HttpServletRequest req) {
+	          return new ResponseEntity<>(new ErrorInfo(LocalDateTime.now(), e.getMessage(), req.getRequestURI()),HttpStatus.NOT_ACCEPTABLE);
+	    }
 	  
 //	  @ExceptionHandler(DataNotFoundException.class)
 //	    public @ResponseBody  ErrorInfo ProductErrorException(DataNotFoundException e, HttpServletRequest req) {

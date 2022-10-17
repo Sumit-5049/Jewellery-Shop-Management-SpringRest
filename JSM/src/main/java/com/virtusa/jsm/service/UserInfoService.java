@@ -22,17 +22,25 @@ public class UserInfoService {
 	Environment env;
 	Log log= LogFactory.getLog(UserInfoService.class);
 
-	
+//msg:Get all Users
+//input:
+//output:List of UserInfo objects
 	public List<?> findAll() {
 		return dao.findAll();		
 	}
 
+//msg:Add new User
+//input:UserInfo object
+//output:String msg
 	public String register(UserInfo u) {
 		dao.save(u);
 		log.info(env.getProperty("registered")+u.getC().getEmail());
 		return env.getProperty("registered")+u.getC().getEmail();
 	}
-
+	
+//msg:Login
+//input:Customer object, String password
+//output:Boolean value
 	public boolean login(Customer c, String pass) {
 		UserInfo u=dao.findByC(c);
 		if(u.getPassword().equals(pass))
@@ -40,12 +48,12 @@ public class UserInfoService {
 		else
 			return false;
 	}
-
+	
+//msg:Get password
+//input:Customer object
+//output:String password
 	public String getPassword(Customer c) {
 		// TODO Auto-generated method stub
 		return dao.findByC(c).getPassword();
 	}
-
-	
-	
 }

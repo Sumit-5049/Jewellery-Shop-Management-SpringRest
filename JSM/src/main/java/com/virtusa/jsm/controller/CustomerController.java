@@ -82,4 +82,23 @@ public class CustomerController {
 		}
 		throw new WrongFormatException(env.getProperty("wrongJWT"));
 	}
+	
+	@GetMapping( path = "/validate")
+	public ResponseEntity<VaildatingDTO> validatingAuthorizationToken(@RequestHeader(name = "Authorization" ) String tokenDup) throws WrongFormatException, DataNotFoundException {
+		String token = tokenDup.substring(7);
+		if(jwtTokenUtil.isTokenInFormat(token)){
+			UserDetails user ;
+			 user = cservice.getByEmail(jwtTokenUtil.extractUsername(token));
+			if(user!=null) {
+				if (jwtTokenUtil.validateToken(token, user)) {
+					vaildatingDTO.setValidStatus(true);
+					return new ResponseEntity<>(vaildatingDTO, HttpStatus.OK);
+				} else {
+					vaildatingDTO.setValidStatus(false);
+					return new ResponseEntity<>(vaildatingDTO, HttpStatus.FORBIDDEN);
+				}
+			}  
+		}
+		throw new WrongFormatException(env.getProperty("wrongJWT"));
+	}
 }

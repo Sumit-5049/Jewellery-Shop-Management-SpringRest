@@ -32,6 +32,9 @@ public class CustomerService {
 	Environment env;
 	Log log= LogFactory.getLog(CustomerService.class);
 
+//msg:Login
+//input:AuthenticationRequest object
+//output:UserDetails object
 	public UserDetails login(AuthenticationRequest req) throws InvalidCredentialException, DataNotFoundException {
 		Customer c=null;
 		c=dao.findByEmail(req.getEmail());
@@ -47,16 +50,23 @@ public class CustomerService {
 		throw new DataNotFoundException(env.getProperty("notpresent")+req.getEmail());
 	}
 
-	
+//msg:All Customers
+//input:
+//output:List of Customer objects
 	public List<?> findAll() {
 		return dao.findAll();		
 	}
-
+	
+//msg:Customer by id
+//input:int customer_id
+//output:Customer object
 	public Customer getById(int i) {
 		return dao.findById(i).get();
 	}
 
-
+//msg:Get Customer by email
+//input:String customer_email
+//output:UsterDetails object
 	public UserDetails getByEmail(String extractUsername) throws DataNotFoundException {
 		Customer c=dao.findByEmail(extractUsername);
 		if(c!=null) {
@@ -66,26 +76,29 @@ public class CustomerService {
 		throw new DataNotFoundException(env.getProperty("invalid")+extractUsername);
 	}
 
+//msg:Get Customer_id
+//input:String customer_email
+//output: int customer_id
 	public int getId(String email) {
 		return dao.findByEmail(email).getCustomerid();
 	}
 
-
+//msg:Get Customer by email
+//input:String customer_email
+//output: Customer object
 	public Customer getCByEmail(String email) {
 		return dao.findByEmail(email);
 	}
 
-
+//msg:Register new Customer
+//input:UserInfo object
+//output:msg
 	public Object register(UserInfo u) throws DuplicateException {
 		if(!dao.existsByEmail(u.getC().getEmail())) {
 			return uservice.register(u);
 		}
 		log.error(env.getProperty("duplicate")+u.getC().getEmail());
-		throw new DuplicateException(env.getProperty("duplicate")+u.getC().getEmail());
-			
+		throw new DuplicateException(env.getProperty("duplicate")+u.getC().getEmail());		
 	}
-
-
-
 	
 }

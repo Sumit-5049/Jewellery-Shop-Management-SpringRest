@@ -32,6 +32,9 @@ public class OrderService {
 	CustomerService cservice;
 	Log log= LogFactory.getLog(OrderService.class);
 	
+//msg:Purches the products & make a bill
+//input:String customer_email, QOrder object
+//output: Bill object
 	public Bill purches(QOrder o,String email) throws StockUnavailableException, DataNotFoundException {
 		List<Cart> c=o.getCarts();
 		Double total=0.0;
@@ -61,13 +64,14 @@ public class OrderService {
 		Bill b=bservice.generate(odao.findById(o.getOrderid()).get(),cservice.getId(email));
 		
 		log.info(env.getProperty("purched"));
-		return b;	}
+		return b;	
+	}
 
+//msg:Get all Qorders
+//input:
+//output: List of QOrder objects
 	public Object getAll() {
 		return odao.findAll();
 	}
-	
-	
-	
 	
 }

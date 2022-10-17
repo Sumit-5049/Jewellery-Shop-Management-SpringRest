@@ -27,7 +27,6 @@ import java.time.LocalDateTime;
 public class BillService {
 	@Autowired
 	BillRepository dao;
-	
 	@Autowired
 	QorderRepository odao;
 	@Autowired
@@ -36,8 +35,9 @@ public class BillService {
 	Environment env;
 	Log log= LogFactory.getLog(BillService.class);
 	
-	
-
+//msg:Generates a new Bill
+//input:Qoredr object & int customer_id
+//output:Bill object
 	public Bill generate(QOrder o, int i) {
 		Customer c=cservice.getById(i);
 		LocalDateTime now = LocalDateTime.now();
@@ -51,6 +51,9 @@ public class BillService {
         return s;
 	}
 	
+//msg:All Bills
+//input:
+//output:List of Bill objects
 	public Object getAll() throws DataNotFoundException {
 		List<Bill> list=null;
 		
@@ -63,6 +66,9 @@ public class BillService {
 			throw new DataNotFoundException(env.getProperty("noBill"));}
 	}
 
+//msg:All Bills for a customer
+//input:String customer_rmail
+//output:List if Bill Objects
 	public Object getAllC(String email) throws DataNotFoundException {
 		List<Bill> list=null;
 		Customer c=cservice.getCByEmail(email);
@@ -75,32 +81,39 @@ public class BillService {
 			throw new DataNotFoundException(env.getProperty("noBill"));}
 	}
 
+//msg:Get Bill By Id
+//input:int bill_id
+//output:Bill object
 	public Bill getById(int id) throws DataNotFoundException {
-		Optional<?> b;
-		b=dao.findById(id);
-		if(!b.isEmpty()) {
+		if(dao.existsById(id)) {
 			 log.error(env.getProperty("displayBill1"));
 			return dao.findById(id).get();}
 		else {
 			 log.error(env.getProperty("noBill"));
 			throw new DataNotFoundException(env.getProperty("noBill"));}
 	}
-
+	
+//msg:A Bill For a Customer
+//input:String customer_email,int bill_id
+//output:Bill Object
 	public Object getByIdC(int id, String email) throws DataNotFoundException {
 		Bill b;
 		Customer c=cservice.getCByEmail(email);
 		if(dao.existsById(id)) {
-			b=dao.findById(id).get();
+			b=this.getById(id);
 			if(b.getCust().equals(c)) {
 				 log.error(env.getProperty("displayBill1"));
 				return b;}
 				 log.error(env.getProperty("noBill"));
 				throw new DataNotFoundException(env.getProperty("noBill"));
 			}
-			log.error(env.getProperty("noBill"));
-			throw new DataNotFoundException(env.getProperty("noBill"));
-			}
+		log.error(env.getProperty("noBill"));
+		throw new DataNotFoundException(env.getProperty("noBill"));
+		}
 
+//msg:All Bills in sorting
+//input:String sort
+//output:List if Bill Objects
 	public Object getAllSort(String sort) throws DataNotFoundException {
 		List<Bill> list=(List<Bill>) this.getAll();
 		if(sort.equals("asc"))
@@ -110,6 +123,9 @@ public class BillService {
 		return list;
 	}
 
+//msg:All Bills in sorting for a customer
+//input:String sort
+//output:List if Bill Objects
 	public Object getAllCS(String email, String sort) throws DataNotFoundException {
 		List<Bill> list=(List<Bill>) this.getAllC(email);
 		if(sort.equals("asc"))
@@ -117,6 +133,18 @@ public class BillService {
 		else if(sort.equals("desc"))
 			list.sort((o1, o2) -> Double.compare(o1.getord().getTotal(), o2.getord().getTotal()));
 		return list;
+	}
+
+//msg:Check Bill is exit or not
+//input:int bill_id
+//output:Boolean value
+	public boolean exitById(int billid) throws DataNotFoundException {
+		if(dao.existsById(billid)) {
+			 log.error(env.getProperty("displayBill1"));
+			return true;}
+		else {
+			 log.error(env.getProperty("noBill"));
+			throw new DataNotFoundException(env.getProperty("noBill"));}
 	}
 	
 }

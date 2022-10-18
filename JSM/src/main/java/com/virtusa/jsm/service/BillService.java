@@ -1,8 +1,6 @@
 package com.virtusa.jsm.service;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -14,13 +12,10 @@ import com.virtusa.jsm.dao.BillRepository;
 import com.virtusa.jsm.dao.QorderRepository;
 import com.virtusa.jsm.dto.Bill;
 import com.virtusa.jsm.dto.Customer;
-import com.virtusa.jsm.dto.Product;
 import com.virtusa.jsm.dto.QOrder;
 import com.virtusa.jsm.exception.DataNotFoundException;
 
-import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
 @Service

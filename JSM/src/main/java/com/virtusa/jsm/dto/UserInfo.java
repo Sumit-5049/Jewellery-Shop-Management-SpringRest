@@ -53,5 +53,4 @@ public class UserInfo {
 		return "UserInfo [userInfoid=" + userInfoid + ", c=" + c + ", password=" + password + "]";
 	}
 	
-	
 }

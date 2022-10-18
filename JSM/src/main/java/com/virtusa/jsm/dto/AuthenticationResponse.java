@@ -27,7 +27,4 @@ public class AuthenticationResponse {
 	public String toString() {
 		return "AuthenticationResponse [email=" + email + ", jwtAuthToken=" + jwtAuthToken + "]";
 	}
-	
-	
-	
 }

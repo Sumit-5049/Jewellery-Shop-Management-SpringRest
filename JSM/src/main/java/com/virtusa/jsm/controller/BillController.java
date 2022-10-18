@@ -1,9 +1,5 @@
 package com.virtusa.jsm.controller;
 
-import java.util.List;
-
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
@@ -11,13 +7,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.virtusa.jsm.dto.Bill;
-import com.virtusa.jsm.dto.Product;
 import com.virtusa.jsm.dto.VaildatingDTO;
 import com.virtusa.jsm.exception.DataNotFoundException;
 import com.virtusa.jsm.exception.WrongFormatException;
@@ -43,10 +36,11 @@ public class BillController {
     @Autowired
  	Environment env;
     
+//msg:Get all Bills of a customer
+//input: token object
+//output: List Bill objects
 	@GetMapping("/all")
 	public ResponseEntity<?> getAllCusBills(@RequestHeader(name = "Authorization" ) String tokenDup) throws DataNotFoundException, WrongFormatException {
-		
-		
 		String token = tokenDup.substring(7);
 		if(jwtTokenUtil.isTokenInFormat(token)){
 			UserDetails user ;
@@ -63,6 +57,9 @@ public class BillController {
 		throw new WrongFormatException(env.getProperty("wrongJWT"));
 	}
 	
+//msg:Get all Bills of a customer by sort
+//input: token object
+//output: List Bill objects
 	@GetMapping("/all/{p}")
 	public ResponseEntity<?> getAllCusrBillsSort(@RequestHeader(name = "Authorization" ) String tokenDup,@PathVariable("p") String sort) throws DataNotFoundException, WrongFormatException {
 		String token = tokenDup.substring(7);
@@ -81,9 +78,11 @@ public class BillController {
 		throw new WrongFormatException(env.getProperty("wrongJWT"));
 	}
 	
+//msg:Get all Bills of Shop
+//input: token object
+//output: List Bill objects
 	@GetMapping("/allShop")
-	public ResponseEntity<?> getAllBills(@RequestHeader(name = "Authorization" ) String tokenDup) throws DataNotFoundException, WrongFormatException {
-		 
+	public ResponseEntity<?> getAllBills(@RequestHeader(name = "Authorization" ) String tokenDup) throws DataNotFoundException, WrongFormatException { 
 		String token = tokenDup.substring(7);
 		if(jwtTokenUtil.isTokenInFormat(token)){
 			UserDetails user ;
@@ -100,7 +99,9 @@ public class BillController {
 		throw new WrongFormatException(env.getProperty("wrongJWT"));
 	}
 	
-
+//msg:Get all Bills of Shop by sort
+//input: token object
+//output: List Bill objects
 	@GetMapping("/allShop/{p}")
 	public ResponseEntity<?> getAllBills(@RequestHeader(name = "Authorization" ) String tokenDup,@PathVariable("p") String sort) throws DataNotFoundException, WrongFormatException {
 		 
@@ -120,6 +121,9 @@ public class BillController {
 		throw new WrongFormatException(env.getProperty("wrongJWT"));
 	}
 	
+//msg:Get a Bill by id for shop
+//input: token object, int bill_id
+//output:  Bill object
 	@GetMapping("/Shop/{p}")
 	public ResponseEntity<?> getById(@RequestHeader(name = "Authorization" ) String tokenDup,@PathVariable("p") int id) throws DataNotFoundException, WrongFormatException {
 		String token = tokenDup.substring(7);
@@ -138,6 +142,9 @@ public class BillController {
 		throw new WrongFormatException(env.getProperty("wrongJWT"));
 	}
 	
+//msg:Get a List of  Bills of particular customer
+//input: token object, string customer_email
+//output: List of Bill objects
 	@GetMapping("/Customer/{p}")
 	public ResponseEntity<?> getAllProductCS(@RequestHeader(name = "Authorization" ) String tokenDup,@PathVariable("p") String email) throws DataNotFoundException, WrongFormatException {
 		String token = tokenDup.substring(7);
@@ -156,6 +163,9 @@ public class BillController {
 		throw new WrongFormatException(env.getProperty("wrongJWT"));
 	}
 	
+//msg:Get a Bill by id for customer
+//input: token object, int bill_id
+//output:  Bill object
 	@GetMapping("/customer/{p}")
 	public ResponseEntity<?> getByIdC(@RequestHeader(name = "Authorization" ) String tokenDup,@PathVariable("p") int id) throws DataNotFoundException, WrongFormatException {
 		String token = tokenDup.substring(7);

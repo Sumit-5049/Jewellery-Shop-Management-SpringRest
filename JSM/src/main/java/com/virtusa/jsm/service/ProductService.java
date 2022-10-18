@@ -3,7 +3,6 @@ package com.virtusa.jsm.service;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Optional;
 
 import org.apache.commons.logging.Log;
@@ -12,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
-import com.virtusa.jsm.controller.ProductController;
 import com.virtusa.jsm.dao.ProductRepository;
 import com.virtusa.jsm.dto.Product;
 import com.virtusa.jsm.exception.DataNotFoundException;

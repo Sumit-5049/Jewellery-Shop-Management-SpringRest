@@ -27,7 +27,6 @@ public class Cart {
 	double price; 	//priceperone*quantity
 	double rateper10gm;
 	
-	
 	public Cart(int cartid, Product p, int purchesquantity, double price, double rateper10gm) {
 		super();
 		this.cartid = cartid;
@@ -74,7 +73,5 @@ public class Cart {
 		return "Cart [cartid=" + cartid + ", p=" + p + ", purchesquantity=" + purchesquantity + ", price=" + price
 				+ ", rateper10gm=" + rateper10gm + "]";
 	}
-	
-	
 	
 }

@@ -23,47 +23,23 @@ public class Shop {
 	String city;
 	String pin;
 	String password;
-	
-//	@OneToMany(mappedBy = "shop_shopid")
-//	List<Product> products=new ArrayList<>();
-	
-//	@OneToMany(mappedBy = "shop_shopid")
-//	List<Bill> bills=new ArrayList<>();
-
-//	public Shop(int shopid, String userName, String email, String contact, int buildno, String streetName, String city,
-//			String pin, String password, List<Product> products/*, List<Bill> bills*/) {
-//		super();
-//		this.shopid = shopid;
-//		this.userName = userName;
-//		this.email = email;
-//		this.contact = contact;
-//		this.buildno = buildno;
-//		this.streetName = streetName;
-//		this.city = city;
-//		this.pin = pin;
-//		this.password = password;
-//		this.products = products;
-//		this.bills = bills;
-//	}
 
 	public Shop() {
 		super();
 	}
 
-	
-
 	public Shop(int shopid, String email, String contact, int buildno, String streetName, String city, String pin,
 		String password) {
-	super();
-	this.shopid = shopid;
-	this.email = email;
-	this.contact = contact;
-	this.buildno = buildno;
-	this.streetName = streetName;
-	this.city = city;
-	this.pin = pin;
-	this.password = password;
-}
+		super();
+		this.shopid = shopid;
+		this.email = email;
+		this.contact = contact;
+		this.buildno = buildno;
+		this.streetName = streetName;
+		this.city = city;
+		this.pin = pin;
+		this.password = password;
+	}
 
 	public String getEmail() {
 		return email;
@@ -134,34 +110,5 @@ public class Shop {
 		return "Shop [shopid=" + shopid + ", email=" + email + ", contact=" + contact + ", buildno=" + buildno
 				+ ", streetName=" + streetName + ", city=" + city + ", pin=" + pin + ", password=" + password + "]";
 	}
-
-	
-
-//	public List<Product> getProducts() {
-//		return products;
-//	}
-//
-//	public voshopid setProducts(List<Product> products) {
-//		this.products = products;
-//	}
-
-//	public List<Bill> getBills() {
-//		return bills;
-//	}
-//
-//	public voshopid setBills(List<Bill> bills) {
-//		this.bills = bills;
-//	}
-
-//	@Overrshopide
-//	public String toString() {
-//		return "Shop [shopid=" + shopid + ", userName=" + userName + ", email=" + email + ", contact=" + contact + ", buildno="
-//				+ buildno + ", streetName=" + streetName + ", city=" + city + ", pin=" + pin + ", password=" + password
-//				+ ", products=" + products /*+ ", bills=" + bills */+ "]";
-//	}
-//	
-	
-	
-
 	
 }

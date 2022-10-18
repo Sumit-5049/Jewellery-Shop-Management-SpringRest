@@ -1,7 +1,6 @@
 package com.virtusa.jsm.service;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -9,12 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.virtusa.jsm.dao.ShopRepository;
 import com.virtusa.jsm.dto.AuthenticationRequest;
-import com.virtusa.jsm.dto.Customer;
 import com.virtusa.jsm.dto.Shop;
 import com.virtusa.jsm.exception.DataNotFoundException;
 import com.virtusa.jsm.exception.InvalidCredentialException;

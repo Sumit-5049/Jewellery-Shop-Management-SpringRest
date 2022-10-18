@@ -31,8 +31,5 @@ public class VaildatingDTO {
 	public String toString() {
 		return "VaildatingDTO [validStatus=" + validStatus + "]";
 	}
-	
-
-    
     
 }

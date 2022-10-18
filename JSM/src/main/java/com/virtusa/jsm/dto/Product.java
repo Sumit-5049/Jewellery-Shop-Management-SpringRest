@@ -27,18 +27,8 @@ public class Product {
 	String material;
 	String type;
 	int quantity;	
-	
-	
-//	pu*rateper10gm*wt/1000	formula for net cost of one product
-	
-			
-//	@Column(name = "costper10gm")
 	double rateper10gm;
-//	@Column(name = "subtotal")
 	double price;
-//	@OneToOne(mappedBy = "")
-//	@JsonIgnore
-//	int shop_id;
 	
 	public Product() {
 		super();
@@ -125,44 +115,4 @@ public class Product {
 				+ ", rateper10gm=" + rateper10gm + ", price=" + price + "]";
 	}
 
-
-	
-//	public Product(int id, String pname, String description, double weight, double purity, String material, String type,
-//			int quantity, double rateper10gm, double price, int shop_id) {
-//		super();
-//		this.id = id;
-//		this.pname = pname;
-//		this.description = description;
-//		this.weight = weight;
-//		this.purity = purity;
-//		this.material = material;
-//		this.type = type;
-//		this.quantity = quantity;
-//		this.rateper10gm = rateper10gm;
-//		this.price = price;
-//		this.shop_id = shop_id;
-//	}
-	
-	
-	
-
-	
-
-//	public int getShop_id() {
-//		return shop_id;
-//	}
-//
-//	public void setShop_id(int shop_id) {
-//		this.shop_id = shop_id;
-//	}
-//
-//	@Override
-//	public String toString() {
-//		return "Product [id=" + id + ", pname=" + pname + ", description=" + description + ", weight=" + weight
-//				+ ", purity=" + purity + ", material=" + material + ", type=" + type + ", quantity=" + quantity
-//				+ ", rateper10gm=" + rateper10gm + ", price=" + price + ", shop_id=" + shop_id + "]";
-//	}
-
-	
-	
 }

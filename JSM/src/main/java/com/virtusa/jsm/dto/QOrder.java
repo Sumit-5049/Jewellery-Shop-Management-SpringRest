@@ -27,11 +27,9 @@ public class QOrder {
 	int orderid;
 	@OneToMany(cascade = CascadeType.ALL)
 	List<Cart> carts=new ArrayList<>();
-	
-//	@Column(name="nettax")
 	Double tax;
-//	@Column(name="net")
 	Double total;
+	
 	public QOrder(int orderid, List<Cart> carts, Double tax, Double total) {
 		super();
 		this.orderid = orderid;
@@ -70,6 +68,5 @@ public class QOrder {
 	public String toString() {
 		return "Order [orderid=" + orderid + ", carts=" + carts + ", tax=" + tax + ", total=" + total + "]";
 	}
-	
 	
 }

@@ -33,61 +33,22 @@ public class Customer {
 	String city;
 	String pin;
 	
-//	@OneToMany
-//	List<Order> orders=new ArrayList<>();
-	
-	
-//	@JsonIgnore
-//	@OneToMany(mappedBy = "cust_id")
-//	List<Bill> bills=new ArrayList<>();
-	
-	
-	
-	
 	public Customer() {
 		super();
 	}
 	
-	
-
-@Override
-	public String toString() {
-		return "Customer [customerid=" + customerid + ", name=" + name + ", email=" + email + ", contact=" + contact
-				+ ", buildno=" + buildno + ", streetName=" + streetName + ", city=" + city + ", pin=" + pin
-				+  "]";
+	public Customer(int customerid, String name, String email, String contact, int buildno, String streetName, String city,
+			String pin) {
+		super();
+		this.customerid = customerid;
+		this.name = name;
+		this.email = email;
+		this.contact = contact;
+		this.buildno = buildno;
+		this.streetName = streetName;
+		this.city = city;
+		this.pin = pin;
 	}
-
-
-
-public Customer(int customerid, String name, String email, String contact, int buildno, String streetName, String city,
-		String pin) {
-	super();
-	this.customerid = customerid;
-	this.name = name;
-	this.email = email;
-	this.contact = contact;
-	this.buildno = buildno;
-	this.streetName = streetName;
-	this.city = city;
-	this.pin = pin;
-}
-
-
-
-//	public Customer(int customerid, String name, String email, String contact, int buildno, String streetName,
-//			String city, String pin, String password, List<Bill> bills) {
-//		super();
-//		this.customerid = customerid;
-//		this.name = name;
-//		this.email = email;
-//		this.contact = contact;
-//		this.buildno = buildno;
-//		this.streetName = streetName;
-//		this.city = city;
-//		this.pin = pin;
-//		this.password = password;
-//		this.bills = bills;
-//	}
 
 	public int getCustomerid() {
 		return customerid;
@@ -153,29 +114,11 @@ public Customer(int customerid, String name, String email, String contact, int b
 		this.pin = pin;
 	}
 
-//	public String getPassword() {
-//		return password;
-//	}
-//
-//	public void setPassword(String password) {
-//		this.password = password;
-//	}
+	@Override
+	public String toString() {
+		return "Customer [customerid=" + customerid + ", name=" + name + ", email=" + email + ", contact=" + contact
+				+ ", buildno=" + buildno + ", streetName=" + streetName + ", city=" + city + ", pin=" + pin
+				+  "]";
+	}
 
-//	public List<Bill> getBills() {
-//		return bills;
-//	}
-//
-//	public void setBills(List<Bill> bills) {
-//		this.bills = bills;
-//	}
-//
-//	@Override
-//	public String toString() {
-//		return "Customer [customerid=" + customerid + ", name=" + name + ", email=" + email + ", contact=" + contact
-//				+ ", buildno=" + buildno + ", streetName=" + streetName + ", city=" + city + ", pin=" + pin
-//				+ ", password=" + password + ", bills=" + bills + "]";
-//	}
-
-	
-	
 }

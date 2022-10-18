@@ -2,26 +2,18 @@ package com.virtusa.jsm.controller;
 
 import java.util.List;
 
-import javax.websocket.server.PathParam;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.virtusa.jsm.dao.BillRepository;
-import com.virtusa.jsm.dao.CustomerRepository;
-import com.virtusa.jsm.dao.QorderRepository;
-import com.virtusa.jsm.dao.ShopRepository;
 import com.virtusa.jsm.dto.AuthenticationRequest;
 import com.virtusa.jsm.dto.AuthenticationResponse;
 import com.virtusa.jsm.dto.UserInfo;
@@ -48,11 +40,18 @@ public class CustomerController {
 	VaildatingDTO vaildatingDTO;
 	@Autowired
 	Environment env;
+	
+//msg:Get all customers
+//input: 
+//output: List of Customer objects
 	@GetMapping("/all")
 	public List<?> getall(){
 		return uservice.findAll();
 	}
 	
+//msg:Login by the customer
+//input: AuthenticationRequest object
+//output: AuthenticationResponse object
 	@PostMapping("/login")
 	public  ResponseEntity<?> loginCus(@RequestBody AuthenticationRequest req) throws InvalidCredentialException, DataNotFoundException {
 		 UserDetails userDetails=cservice.login(req);
@@ -60,11 +59,17 @@ public class CustomerController {
 					new AuthenticationResponse(req.getEmail(), jwtTokenUtil.generateToken(userDetails)),HttpStatus.OK);
 	}
 	
+//msg:Add new customer
+//input: UserInfo object
+//output: string msg
 	@PostMapping("/register")
 	public ResponseEntity<?> register(@RequestBody UserInfo u) throws DuplicateException {
 		return new ResponseEntity<>(cservice.register(u),HttpStatus.OK);
 	}
 	
+//msg:Logout by a customer
+//input: token object
+//output: String msg
 	@GetMapping("/logout")
 	public  ResponseEntity<?> logoutCus(@RequestHeader(name = "Authorization" ) String tokenDup) throws  WrongFormatException, DataNotFoundException {
 		String token = tokenDup.substring(7);
@@ -83,6 +88,9 @@ public class CustomerController {
 		throw new WrongFormatException(env.getProperty("wrongJWT"));
 	}
 	
+//msg:Validate token for a customer
+//input: token object
+//output: String msg
 	@GetMapping( path = "/validate")
 	public ResponseEntity<VaildatingDTO> validatingAuthorizationToken(@RequestHeader(name = "Authorization" ) String tokenDup) throws WrongFormatException, DataNotFoundException {
 		String token = tokenDup.substring(7);

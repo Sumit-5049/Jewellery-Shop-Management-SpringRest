@@ -3,7 +3,6 @@ package com.virtusa.jsm.service;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -15,9 +14,7 @@ import org.springframework.stereotype.Service;
 
 import com.virtusa.jsm.dao.ReturnReqRepository;
 import com.virtusa.jsm.dto.Bill;
-import com.virtusa.jsm.dto.Cart;
 import com.virtusa.jsm.dto.Customer;
-import com.virtusa.jsm.dto.Product;
 import com.virtusa.jsm.dto.ReturnReq;
 import com.virtusa.jsm.exception.DataNotFoundException;
 import com.virtusa.jsm.exception.NotPossibleException;
@@ -47,7 +44,6 @@ public class ReturnReqService {
 	        Timestamp dateTime = Timestamp.valueOf(now);
 	        int diff= dateTime.getDate()-r.getBill().getDateTime().getDate();
 	        if(diff<4) {
-	        	
 	        	r.setDateTime(dateTime);
 	        	r.setStatus("Pending");
 	        	dao.save(r);
@@ -188,6 +184,24 @@ public class ReturnReqService {
 			 log.error(env.getProperty("no"+status)+email);
 			throw new DataNotFoundException(env.getProperty("no"+status)+email);
 			}
+	}
+
+//msg: Delete ReturnReq By a customer
+//input: string email, ReturnReq Object
+//output: String msg
+	public Object deleteReturnReq(ReturnReq r, String email) throws DataNotFoundException {
+		if(dao.existsById(r.getReturnid())) {
+			if(r.getBill().getCust().getEmail().equals(email)) {
+				int id=r.getReturnid();
+				log.info(env.getProperty("reqDeleted")+id);
+				dao.delete(r);
+				return env.getProperty("reqDeleted")+id;
+			}
+				log.error(env.getProperty("noReturnReq"));
+				throw new DataNotFoundException(env.getProperty("noReturnReq"));
+		}
+		log.error(env.getProperty("noReturnReq"));
+		throw new DataNotFoundException(env.getProperty("noReturnReq"));
 	}
 	
 }
